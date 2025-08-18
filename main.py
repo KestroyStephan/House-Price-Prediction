@@ -3,6 +3,7 @@ from pydantic import BaseModel
 import joblib
 import numpy as np
 import json
+from typing import Any, Dict
 
 # Load model & metadata when app starts
 model = joblib.load("models/model.pkl")
@@ -10,17 +11,20 @@ with open("models/metadata.json", "r") as f:
     metadata = json.load(f)
 
 # Initialize FastAPI
-app = FastAPI(title="House Price Prediction API",
-              description="Predicts house price based on input features.")
+app = FastAPI(
+    title="House Price Prediction API",
+    description="Predicts house price based on input features and provides model information.",
+    version="1.0.0"
+)
 
-# Define input schema
+# Input schema
 class HouseInput(BaseModel):
     area: float
     bedrooms: int
     bathrooms: int
     stories: int
 
-# Define output schema
+# Output schema
 class PredictionOutput(BaseModel):
     prediction: float
 
@@ -42,5 +46,9 @@ def predict(input_data: HouseInput):
 
 # Model info endpoint
 @app.get("/model-info")
-def model_info():
-    return metadata
+def model_info() -> Dict[str, Any]:
+    return {
+        "best_model": metadata["best_model"],
+        "features": metadata["features"],
+        "results": metadata["results"]
+    }
