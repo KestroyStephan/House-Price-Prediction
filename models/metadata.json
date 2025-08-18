@@ -1,0 +1,1 @@
+{"model_type": "Random Forest Regressor", "problem_type": "Regression (House Price Prediction)", "features": ["area", "bedrooms", "bathrooms", "stories"], "n_estimators": 100}
