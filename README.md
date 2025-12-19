@@ -28,4 +28,4 @@ Returns model type and features used.
 ## Run the API
 1. Install dependencies: pip install -r requirements.txt
 2. Run: uvicorn main:app --reload
-3. Open: http://127.0.0.1:8000/docs
+3. Open: http://127.0.0.1:8000/docs. 
